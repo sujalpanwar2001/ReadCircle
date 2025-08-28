@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/book_social_network
+    username: username
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    username: sujalpanwar2001@gmail.com
+    password: idsz bjcb ftjc khkd
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            trust: "*"
+          starttls:
+            enable: true
+    protocol: smtp
+
+server:
+  port: 8088
+
+application:
+  security:
+    jwt:
+      secret-key: 4vM7k9z3x2j8y5n6q1p0w4r8t2u6v9x0y7z3a1b5c8d2e9f4g6h
+      expiration: 86400000
+  mailing:
+    frontend:
+      activation-url: http://localhost:8080/activate-account
+  file:
+    uploads:
+      photos-output-path: ./uploads
+
+
+
