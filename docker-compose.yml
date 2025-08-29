@@ -23,6 +23,11 @@ services:
   bsn-api:
     container_name: bsn-api
     image: sujalpanwar/bsn-api:latest
+    environment:
+      EMAIL_HOST_NAME: "${EMAIL_HOST_NAME}"
+      EMAIL_PORT: "${EMAIL_PORT}"
+      EMAIL_USER_NAME: "${EMAIL_USER_NAME}"
+      EMAIL_PASSWORD: "${EMAIL_PASSWORD}"
     ports:
       - 8088:8088
     networks:
