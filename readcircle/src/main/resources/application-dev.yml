@@ -40,7 +40,7 @@ application:
       expiration: 86400000
   mailing:
     frontend:
-      activation-url: http://localhost:8080/activate-account
+      activation-url: http://129.146.10.25:80/activate-account
   cors:
     origins: http://localhost:4200,http://localhost:8080,http://141.148.222.231:8088,http://141.148.222.231:8080,http://141.148.222.231:80
   file:
