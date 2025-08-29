@@ -123,15 +123,18 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy Backend
-    needs: [build-image]
+    needs: [ build-image ]
     steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup SSH
         run: |
-           mkdir -p ~/.ssh
-           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-           chmod 600 ~/.ssh/id_rsa
-           ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "echo ✅ Connected successfully"
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "echo ✅ Connected successfully"
 
       - name: Create deployment folder
         run: |
@@ -140,11 +143,6 @@ jobs:
       - name: Copy docker-compose file
         run: |
           scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:ci-cd/docker-compose.yml
-          
-
-#      - name: Checkout code
-#        uses: actions/checkout@v4
-
 
       - name: Set ENV variables and deploy
         run: |
@@ -156,3 +154,4 @@ jobs:
           docker compose -f docker-compose.yml pull -q
           docker compose -f docker-compose.yml up -d
           EOF
+ 
