@@ -50,6 +50,9 @@ jobs:
           EMAIL_HOST_NAME: ${{ secrets.EMAIL_HOST_NAME }}
           EMAIL_USER_NAME: ${{ secrets.EMAIL_USER_NAME }}
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/readcircle
+          SPRING_DATASOURCE_USERNAME: test
+          SPRING_DATASOURCE_PASSWORD: test
         run: |
           cd readcircle
           chmod +x ./mvnw
