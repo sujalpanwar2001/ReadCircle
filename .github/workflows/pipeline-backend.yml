@@ -1,0 +1,148 @@
+name: ReadCircle Backend API Pipeline
+
+on:
+  push:
+    paths:
+      - readcircle/**
+      - docker/backend/**
+      - 'docker-compose.yml'
+      - .github/workflows/*-backend.yml
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    name: Compile project
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Compile project
+        run: |
+          cd readcircle
+          ./mvnw clean compile
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    name: Unit tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Run Unit Tests
+        run: |
+          cd readcircle
+          ./mvnw clean test
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build backend
+    needs: [compile, unit-tests]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Build project
+        run: |
+          cd readcircle
+          ./mvnw clean package -DskipTests
+
+  build-image:
+    runs-on: ubuntu-latest
+    name: Build Docker image
+    needs: [build]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Extract project version
+        id: extract_version
+        run: |
+          cd readcircle
+          echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: readcircle
+          file: docker/backend/Dockerfile
+          push: true
+          platforms: linux/amd64
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:${{ steps.extract_version.outputs.VERSION }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:latest
+          build-args: |
+            PROFILE=dev
+            APP_VERSION=${{ steps.extract_version.outputs.VERSION }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Backend
+    needs: [build-image]
+    steps:
+
+      - name: Setup SSH
+        run: |
+           mkdir -p ~/.ssh
+           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+           chmod 600 ~/.ssh/id_rsa
+           ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "echo ✅ Connected successfully"
+
+      - name: Create deployment folder
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "mkdir -p ci-cd"
+
+      - name: Copy docker-compose file
+        run: |
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:ci-cd/docker-compose.yml
+          
+
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+
+
+      - name: Set ENV variables and deploy
+        run: |
+          ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} <<EOF
+          export EMAIL_HOST_NAME='${{ secrets.EMAIL_HOST_NAME }}'
+          export EMAIL_USER_NAME='${{ secrets.EMAIL_USER_NAME }}'
+          export EMAIL_PASSWORD='${{ secrets.EMAIL_PASSWORD }}'
+          cd ci-cd
+          docker compose -f docker-compose.yml pull -q
+          docker compose -f docker-compose.yml up -d
+          EOF

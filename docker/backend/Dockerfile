@@ -12,7 +12,7 @@ ARG PROFILE=dev
 ARG APP_VERSION=1.0.0
 
 WORKDIR /app
-COPY --from=build /build/target/book-network-*.jar /app/
+COPY --from=build /build/target/readcircle-*.jar /app/
 
 EXPOSE 8088
 
@@ -25,4 +25,4 @@ ENV EMAIL_HOST_NAME: missing_host_name
 ENV EMAIL_USER_NAME: missing_user_name
 ENV EMAIL_PASSWORD: missing_password
 
-CMD java -jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Dspring.profiles.active=${ACTIVE_PROFILE} -Dspring.datasource.url=${DB_URL}  book-network-${JAR_VERSION}.jar
+CMD java -jar  -Dspring.profiles.active=${ACTIVE_PROFILE} -Dspring.datasource.url=${DB_URL}  readcircle-${JAR_VERSION}.jar

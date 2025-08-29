@@ -15,7 +15,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   mail:
-    host: ${EMAIL_HOSTNAME}
+    host: ${EMAIL_HOST_NAME}
     port: 465
     username: ${EMAIL_USER_NAME}
     password: ${EMAIL_PASSWORD}
@@ -42,7 +42,7 @@ application:
     frontend:
       activation-url: http://localhost:8080/activate-account
   cors:
-    origins: http://localhost:4200,http://localhost:8080
+    origins: http://localhost:4200,http://localhost:8080,http://141.148.222.231:8088,http://141.148.222.231:8080,http://141.148.222.231:80
   file:
     uploads:
       photos-output-path: ./uploads
