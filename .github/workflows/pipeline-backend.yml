@@ -48,6 +48,7 @@ jobs:
       - name: Run Unit Tests
         run: |
           cd readcircle
+          chmod +x ./mvnw
           ./mvnw clean test
 
   build:
@@ -69,6 +70,7 @@ jobs:
       - name: Build project
         run: |
           cd readcircle
+          chmod +x ./mvnw
           ./mvnw clean package -DskipTests
 
   build-image:
@@ -89,6 +91,7 @@ jobs:
         id: extract_version
         run: |
           cd readcircle
+          chmod +x ./mvnw
           echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
 
       - name: Login to DockerHub
