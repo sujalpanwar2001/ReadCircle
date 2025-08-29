@@ -27,6 +27,7 @@ jobs:
       - name: Compile project
         run: |
           cd readcircle
+          chmod +x ./mvnw
           ./mvnw clean compile
 
   unit-tests:
