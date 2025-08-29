@@ -36,15 +36,15 @@ services:
       - postgres
 
 
-#  bsn-ui:
-#    container_name: bsn-ui
-#    image: sujalpanwar/bsn-ui:latest
-#    ports:
-#      - 80:80
-#    networks:
-#      - spring-demo
-#    depends_on:
-#      - bsn-api
+  bsn-ui:
+    container_name: bsn-ui
+    image: sujalpanwar/bsn-ui:latest
+    ports:
+      - 80:80
+    networks:
+      - spring-demo
+    depends_on:
+      - bsn-api
 
 #  keycloak:
 #    container_name: keycloak-bsn
