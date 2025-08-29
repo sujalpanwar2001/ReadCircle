@@ -41,8 +41,34 @@ application:
   mailing:
     frontend:
       activation-url: http://129.146.10.25:80/activate-account
+
   cors:
-    origins: http://localhost:4200,http://localhost:8080,http://141.148.222.231:8088,http://141.148.222.231:8080,http://141.148.222.231:80,http://141.148.222.231,http://localhost:4200,http://readcircle.duckdns.org,http://readcircle.duckdns.org:80,
+    origins:
+      # Domain (HTTP + all ports)
+      - http://readcircle.duckdns.org:*
+
+      # Domain (HTTPS + all ports, future SSL)
+      - https://readcircle.duckdns.org:*
+
+      # Public IP (HTTP + all ports)
+      - http://141.148.222.231:*
+
+      # Public IP (HTTPS + all ports, future SSL)
+      - https://141.148.222.231:*
+
+      # Local development (HTTP + all ports)
+      - http://localhost:*
+      - https://localhost:*
+
+      - http://readcircle.duckdns.org
+      - https://readcircle.duckdns.org
+      - http://141.148.222.231
+      - https://141.148.222.231
+      - http://localhost:4200
+      - http://localhost:8080
+
+
+
   file:
     uploads:
       photos-output-path: ./uploads
