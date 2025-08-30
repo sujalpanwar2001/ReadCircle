@@ -1,5 +1,5 @@
-FROM node:16 as build-stage
-
+#FROM node:16 as build-stage
+FROM node:20 as build-stage  # LTS and fully ARM compatible
 WORKDIR /app
 
 COPY package*.json ./
