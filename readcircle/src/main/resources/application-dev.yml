@@ -38,7 +38,7 @@ spring:
       resourceserver:
         jwt:
 #          issuer-uri: "http://localhost:9090/realms/ReadCircle"
-           issuer-uri: "http://keycloak:8080/realms/ReadCircle"
+           issuer-uri: "http://144.24.124.183:9090/realms/ReadCircle"
 server:
   port: 8088
 
