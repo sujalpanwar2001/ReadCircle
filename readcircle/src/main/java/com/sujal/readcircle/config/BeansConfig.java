@@ -25,32 +25,32 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BeansConfig {
 
-    private final UserDetailsService userDetailsService;
+//    private final UserDetailsService userDetailsService;
 
     @Value("${application.cors.origins:*}")
     private List<String> allowedOrigin;
 
-    @Bean
-    public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService){
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
+//    @Bean
+//    public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService){
+//        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+//        authProvider.setUserDetailsService(userDetailsService);
+//        authProvider.setPasswordEncoder(passwordEncoder());
+//        return authProvider;
+//
+//    }
+//
+//    @Bean
+//    public PasswordEncoder passwordEncoder(){
+//        return new BCryptPasswordEncoder();
+//    }
+//
+//    @Bean
+//    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+//        return config.getAuthenticationManager();
+//    }
 
-    }
-
     @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
-
-    @Bean
-    public AuditorAware<Integer> auditorAware(){
+    public AuditorAware<String> auditorAware(){
         return new ApplicationAuditAware();
     }
 

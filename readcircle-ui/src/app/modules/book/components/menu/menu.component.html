@@ -16,11 +16,11 @@
             <i class="fas fa-book"></i>&nbsp;My books
           </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" routerLink="my-waiting-list">
             <i class="fas fa-heart"></i>&nbsp;My waiting list
           </a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a class="nav-link" routerLink="my-returned-books">
             <i class="fa-solid fa-truck-fast"></i>&nbsp;Books Returned to Me
@@ -33,10 +33,10 @@
         </li>
       </ul>
       <form class="d-flex gap-2 align-items-center" role="search">
-        <input class="form-control" type="search" placeholder="Find a book" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
+        <!-- <input class="form-control" type="search" placeholder="Find a book" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button> -->
         <span>Welcome</span>
-        <span class="text-capitalize fw-bold">Sujal</span>
+        <span class="text-capitalize fw-bold">{{loggedUser}}</span>
         <button class="btn btn-link" type="submit" (click)="logout()"><i class="fas fa-door-open"></i></button>
       </form>
     </div>

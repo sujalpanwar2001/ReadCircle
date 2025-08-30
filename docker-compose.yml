@@ -58,6 +58,20 @@ services:
 #      - spring-demo
 #    command:
 #      - "start-dev"
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.1
+    container_name: keycloak
+    command:
+      - start-dev
+      - --import-realm
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    volumes:
+      - /home/ubuntu/ReadCircle.json:/opt/keycloak/data/import/ReadCircle.json
+    ports:
+      - "9090:8080"
 networks:
   spring-demo:
     driver: bridge
