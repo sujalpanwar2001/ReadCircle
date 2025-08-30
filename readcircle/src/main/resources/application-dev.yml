@@ -58,12 +58,20 @@ application:
 
       # Domain (HTTPS + all ports, future SSL)
       - https://readcircle.duckdns.org:*
+      - http://readcircle.mooo.com:*
+      - -https://readcircle.mooo.com:*
 
       # Public IP (HTTP + all ports)
       - http://141.148.222.231:*
 
       # Public IP (HTTPS + all ports, future SSL)
       - https://141.148.222.231:*
+
+      # Public IP (HTTP + all ports)
+      - http://144.24.124.183:*
+
+      # Public IP (HTTPS + all ports, future SSL)
+      - https://144.24.124.183:*
 
       # Local development (HTTP + all ports)
       - http://localhost:*
@@ -73,6 +81,8 @@ application:
       - https://readcircle.duckdns.org
       - http://141.148.222.231
       - https://141.148.222.231
+      - http://144.24.124.183
+      - https://144.24.124.183
       - http://localhost:4200
       - http://localhost:8080
 

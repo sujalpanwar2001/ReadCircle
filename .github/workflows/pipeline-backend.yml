@@ -108,19 +108,40 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+          #for arm
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
       - name: Build & Push Docker image
         uses: docker/build-push-action@v5
         with:
           context: readcircle
           file: docker/backend/Dockerfile
           push: true
-          platforms: linux/amd64
+          platforms: linux/arm64
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:${{ steps.extract_version.outputs.VERSION }}
             ${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:latest
           build-args: |
             PROFILE=dev
             APP_VERSION=${{ steps.extract_version.outputs.VERSION }}
+
+
+
+      #changed for arm
+#      - name: Build & Push Docker image
+#        uses: docker/build-push-action@v5
+#        with:
+#          context: readcircle
+#          file: docker/backend/Dockerfile
+#          push: true
+#          platforms: linux/amd64
+#          tags: |
+#            ${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:${{ steps.extract_version.outputs.VERSION }}
+#            ${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:latest
+#          build-args: |
+#            PROFILE=dev
+#            APP_VERSION=${{ steps.extract_version.outputs.VERSION }}
 
   deploy:
     runs-on: ubuntu-latest

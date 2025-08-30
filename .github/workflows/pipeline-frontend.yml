@@ -24,11 +24,25 @@ jobs:
           cd readcircle-ui
           echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_OUTPUT
 
+#for arm
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+
       - name: Login to DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      #changed for arm vps
+#      - name: Build & Push to DockerHub
+#        uses: docker/build-push-action@v5
+#        with:
+#          context: readcircle-ui
+#          file: docker/frontend/Dockerfile
+#          push: true
+#          platforms: linux/amd64
+#          tags: ${{ secrets.DOCKERHUB_USERNAME }}/bsn-ui:latest,${{ secrets.DOCKERHUB_USERNAME }}/bsn-ui:${{ steps.extract_version.outputs.VERSION }}
 
       - name: Build & Push to DockerHub
         uses: docker/build-push-action@v5
@@ -36,8 +50,11 @@ jobs:
           context: readcircle-ui
           file: docker/frontend/Dockerfile
           push: true
-          platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/bsn-ui:latest,${{ secrets.DOCKERHUB_USERNAME }}/bsn-ui:${{ steps.extract_version.outputs.VERSION }}
+          platforms: linux/arm64
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/bsn-ui:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/bsn-ui:${{ steps.extract_version.outputs.VERSION }}
+
 
   deploy:
     name: Deploy Frontend

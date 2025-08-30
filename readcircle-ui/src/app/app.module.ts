@@ -30,7 +30,9 @@ export function kcFactory(kcService: KeycloakService) {
     HttpClientModule,
     FormsModule,
     CodeInputModule,
-    ApiModule.forRoot({rootUrl: 'http://141.148.222.231:8088/api/v1'})
+    // ApiModule.forRoot({rootUrl: 'http://141.148.222.231:8088/api/v1'})
+    ApiModule.forRoot({rootUrl: 'http://144.24.124.183:8088/api/v1'})
+
     // ApiModule.forRoot({rootUrl: 'http://localhost:8088/api/v1'})
 
 

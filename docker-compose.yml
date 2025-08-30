@@ -23,6 +23,7 @@ services:
   bsn-api:
     container_name: bsn-api
     image: sujalpanwar/bsn-api:latest
+    platform: linux/arm64
     environment:
       EMAIL_HOST_NAME: "${EMAIL_HOST_NAME}"
       EMAIL_PORT: "${EMAIL_PORT}"
@@ -39,6 +40,7 @@ services:
   bsn-ui:
     container_name: bsn-ui
     image: sujalpanwar/bsn-ui:latest
+    platform: linux/arm64
     ports:
       - 80:80
     networks:
@@ -62,6 +64,7 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:24.0.1
     container_name: keycloak
+    platform: linux/arm64
     command:
       - start-dev
       - --import-realm
