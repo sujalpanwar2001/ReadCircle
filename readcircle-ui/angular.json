@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "readcircle-ui:build:production"
+              "buildTarget": "readcircle-ui:build:production"
             },
             "development": {
-              "browserTarget": "readcircle-ui:build:development"
+              "buildTarget": "readcircle-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "readcircle-ui:build"
+            "buildTarget": "readcircle-ui:build"
           }
         },
         "test": {
