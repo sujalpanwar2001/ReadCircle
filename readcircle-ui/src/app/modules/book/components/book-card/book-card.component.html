@@ -1,4 +1,4 @@
-<div
+<!-- <div
   class="card border-2"
   style="width: 20rem;"
   [class.border-success]="book.shareable"
@@ -23,7 +23,7 @@
     <div class="d-flex gap-2" *ngIf="!manage">
       <i (click)="onShowDetails()" class="fas fa-circle-info text-primary"></i>
       <i (click)="onBorrow()" class="fas fa-list-check text-primary"></i>
-      <!-- <i (click)="onAddToWaitingList()" class="fas fa-heart text-danger"></i> -->
+ 
     </div>
     <div class="d-flex gap-2" *ngIf="manage">
       <i (click)="onEdit()" class="fas fa-edit text-success"></i>
@@ -31,4 +31,121 @@
       <i (click)="onArchive()" class="fas fa-archive text-danger"></i>
     </div>
   </div>
+</div> -->
+
+<!-- <div
+  class="card border-0 shadow-sm rounded-3 overflow-hidden"
+  style="width: 20rem;"
+  [class.border-success]="book.shareable"
+  [class.border-warning]="book.archived"
+>
+  <img height="200" [src]="bookCover" class="card-img-top object-fit-cover" alt="Book cover">
+  <div class="card-body">
+    <h5 class="card-title fs-6 fw-bold mb-1 text-truncate">
+      <i class="fa-solid fa-book text-primary"></i>&nbsp;{{book.title}}
+    </h5>
+    <h6 class="card-subtitle text-muted mb-1">
+      <i class="fa-solid fa-user-check"></i>&nbsp;{{ book.authorName }}
+    </h6>
+    <h6 class="card-subtitle text-muted mb-1">
+      <i class="fas fa-code"></i>&nbsp;{{ book.isbn }}
+    </h6>
+    <h6 class="card-subtitle text-muted">
+      <i class="fas fa-user"></i>&nbsp;{{ book.owner }}
+    </h6>
+    <hr>
+    <p class="card-text small text-muted">{{book.synopsis}}</p>
+  </div>
+  <div class="card-footer d-flex justify-content-between align-items-center bg-light">
+    <div class="d-flex align-items-center gap-2">
+      <app-rating [rating]="book.rate || 0"></app-rating>
+      <span class="fw-bold small text-dark" *ngIf="book.rate || 0 > 0">{{book.rate}}</span>
+    </div>
+    <div class="d-flex gap-3" *ngIf="!manage">
+      <i (click)="onShowDetails()" class="fas fa-circle-info text-primary cursor-pointer"></i>
+      <i (click)="onBorrow()" class="fas fa-list-check text-success cursor-pointer"></i>
+    </div>
+    <div class="d-flex gap-3" *ngIf="manage">
+      <i (click)="onEdit()" class="fas fa-edit text-success cursor-pointer"></i>
+      <i (click)="onShare()" class="fas fa-share-nodes text-primary cursor-pointer"></i>
+      <i (click)="onArchive()" class="fas fa-archive text-danger cursor-pointer"></i>
+    </div>
+  </div>
+</div> -->
+
+
+<div
+  class="card border-0 shadow-sm rounded-3 overflow-hidden position-relative"
+  style="width: 20rem;"
+  [class.border-success]="manage && book.shareable"
+  [class.border-warning]="manage && book.archived"
+>
+  <!-- Badges only for My Books -->
+  <span *ngIf="manage && book.shareable"
+        class="badge bg-success position-absolute top-0 end-0 m-2">
+    Shared
+  </span>
+  <span *ngIf="manage && book.archived"
+        class="badge bg-warning text-dark position-absolute top-0 end-0 m-2">
+    Archived
+  </span>
+
+  <img height="200" [src]="bookCover" class="card-img-top object-fit-cover" alt="Book cover">
+
+  <div class="card-body">
+    <h5 class="card-title fs-6 fw-bold mb-1 text-truncate">
+      <i class="fa-solid fa-book text-primary"></i>&nbsp;{{ book.title }}
+    </h5>
+    <h6 class="card-subtitle text-muted mb-1">
+      <i class="fa-solid fa-user-check"></i>&nbsp;{{ book.authorName }}
+    </h6>
+    <h6 class="card-subtitle text-muted mb-1">
+      <i class="fas fa-code"></i>&nbsp;{{ book.isbn }}
+    </h6>
+    <h6 class="card-subtitle text-muted">
+      <i class="fas fa-user"></i>&nbsp;{{ book.owner }}
+    </h6>
+    <hr>
+    <p class="card-text small text-muted">
+      {{ book.synopsis }}
+    </p>
+  </div>
+
+  <!-- <div class="card-footer d-flex justify-content-between align-items-center bg-light">
+    <div class="d-flex align-items-center gap-2">
+      <app-rating [rating]="book.rate || 0"></app-rating>
+      <span class="fw-bold small text-dark" *ngIf="book.rate || 0 > 0">{{ book.rate }}</span>
+    </div>
+
+   
+    <div class="d-flex gap-3" *ngIf="!manage">
+      <i (click)="onShowDetails()" class="fas fa-circle-info text-primary cursor-pointer"></i>
+      <i (click)="onBorrow()" class="fas fa-list-check text-success cursor-pointer"></i>
+    </div>
+    <div class="d-flex gap-3" *ngIf="manage">
+      <i (click)="onEdit()" class="fas fa-edit text-success cursor-pointer"></i>
+      <i (click)="onShare()" class="fas fa-share-nodes text-primary cursor-pointer"></i>
+      <i (click)="onArchive()" class="fas fa-archive text-danger cursor-pointer"></i>
+    </div>
+  </div> -->
+  <div class="card-footer d-flex justify-content-between align-items-center bg-light">
+  <div class="d-flex align-items-center gap-2">
+    <app-rating [rating]="book.rate ?? 0"></app-rating>
+    <!-- <span class="fw-bold small text-dark" *ngIf="(book.rate ?? 0) > 0">
+      {{ book.rate }}
+    </span> -->
+  </div>
+
+  <!-- Actions -->
+  <div class="d-flex gap-3" *ngIf="!manage">
+    <i (click)="onShowDetails()" class="fas fa-circle-info text-primary cursor-pointer"></i>
+    <i (click)="onBorrow()" class="fas fa-list-check text-success cursor-pointer"></i>
+  </div>
+  <div class="d-flex gap-3" *ngIf="manage">
+    <i (click)="onEdit()" class="fas fa-edit text-success cursor-pointer"></i>
+    <i (click)="onShare()" class="fas fa-share-nodes text-primary cursor-pointer"></i>
+    <i (click)="onArchive()" class="fas fa-archive text-danger cursor-pointer"></i>
+  </div>
+</div>
+
 </div>

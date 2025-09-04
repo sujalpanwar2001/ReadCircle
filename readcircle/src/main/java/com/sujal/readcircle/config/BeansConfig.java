@@ -54,17 +54,33 @@ public class BeansConfig {
         return new ApplicationAuditAware();
     }
 
+//    @Bean
+//    public CorsFilter corsFilter() {
+//        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        final CorsConfiguration config = new CorsConfiguration();
+//        // config.setAllowCredentials(true);
+//        config.setAllowedOrigins(allowedOrigin);
+//        config.setAllowedHeaders(Arrays.asList("*"));
+//        config.setAllowedMethods(Arrays.asList("*"));
+//        source.registerCorsConfiguration("/**", config);
+//        return new CorsFilter(source);
+//
+//    }
+
     @Bean
     public CorsFilter corsFilter() {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
-        // config.setAllowCredentials(true);
-        config.setAllowedOrigins(allowedOrigin);
-        config.setAllowedHeaders(Arrays.asList("*"));
-        config.setAllowedMethods(Arrays.asList("*"));
+
+        config.setAllowCredentials(true); // 🔥 Required for cookies/tokens
+        config.setAllowedOriginPatterns(allowedOrigin); // 🔥 supports wildcards + ports
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowedMethods(List.of("*"));
+        config.addExposedHeader(HttpHeaders.AUTHORIZATION); // optional, expose token headers if needed
+
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
-
     }
+
 
 }

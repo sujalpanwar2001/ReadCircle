@@ -12,6 +12,7 @@ import { CodeInputModule } from 'angular-code-input';
 import { HttpTokenInterceptor } from './services/interceptor/http-token.interceptor';
 import { ApiModule } from './services/api.module';
 import { KeycloakService } from './services/keycloak/keycloak.service';
+import { ToastrModule } from 'ngx-toastr';
 
 export function kcFactory(kcService: KeycloakService) {
   return () => kcService.init();
@@ -30,7 +31,15 @@ export function kcFactory(kcService: KeycloakService) {
     HttpClientModule,
     FormsModule,
     CodeInputModule,
-    // ApiModule.forRoot({rootUrl: 'http://141.148.222.231:8088/api/v1'})
+    ToastrModule,
+        ToastrModule.forRoot({
+      progressBar: true,
+      closeButton: true,
+      newestOnTop: true,
+      tapToDismiss: true,
+      positionClass: 'toast-bottom-right',
+      timeOut: 8000
+    }),
     ApiModule.forRoot({rootUrl: 'http://144.24.124.183:8088/api/v1'})
 
     // ApiModule.forRoot({rootUrl: 'http://localhost:8088/api/v1'})

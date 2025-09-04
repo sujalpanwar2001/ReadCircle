@@ -15,14 +15,14 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   mail:
-    host: ${EMAIL_HOST_NAME}
-    port: 465
-    username: ${EMAIL_USER_NAME}
-    password: ${EMAIL_PASSWORD}
-#    host: smtp.gmail.com
+#    host: ${EMAIL_HOST_NAME}
 #    port: 465
-#    username: sujalpanwar2001@gmail.com
-#    password: idsz bjcb ftjc khkd
+#    username: ${EMAIL_USER_NAME}
+#    password: ${EMAIL_PASSWORD}
+    host: smtp.gmail.com
+    port: 465
+    username: sujalpanwar2001@gmail.com
+    password: idsz bjcb ftjc khkd
     properties:
       mail:
         smtp:
@@ -44,12 +44,6 @@ server:
 
 application:
   security:
-#    jwt:
-#      secret-key: 4vM7k9z3x2j8y5n6q1p0w4r8t2u6v9x0y7z3a1b5c8d2e9f4g6h
-#      expiration: 86400000
-#  mailing:
-#    frontend:
-#      activation-url: http://129.146.10.25:80/activate-account
 
   cors:
     origins:

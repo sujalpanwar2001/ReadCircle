@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { PageResponseBorrowedBookResponse, BorrowedBookResponse } from 'src/app/services/models';
 import { BookService } from 'src/app/services/services';
 
@@ -9,13 +10,14 @@ import { BookService } from 'src/app/services/services';
 })
 export class ReturnBooksComponent implements OnInit{
   page = 0;
-  size = 5;
+  size = 15;
   pages: any = [];
   returnedBooks: PageResponseBorrowedBookResponse = {};
   message = '';
   level: 'success' |'error' = 'success';
   constructor(
-    private bookService: BookService
+    private bookService: BookService,
+        private toastService: ToastrService
   ) {
   }
 
@@ -75,7 +77,7 @@ export class ReturnBooksComponent implements OnInit{
     }).subscribe({
       next: () => {
         this.level = 'success';
-        this.message = 'Book return approved';
+        this.toastService.success('Book return approved', 'Done');
         this.findAllReturnedBooks();
       }
     });

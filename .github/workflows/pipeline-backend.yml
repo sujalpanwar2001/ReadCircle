@@ -128,20 +128,6 @@ jobs:
 
 
 
-      #changed for arm
-#      - name: Build & Push Docker image
-#        uses: docker/build-push-action@v5
-#        with:
-#          context: readcircle
-#          file: docker/backend/Dockerfile
-#          push: true
-#          platforms: linux/amd64
-#          tags: |
-#            ${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:${{ steps.extract_version.outputs.VERSION }}
-#            ${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:latest
-#          build-args: |
-#            PROFILE=dev
-#            APP_VERSION=${{ steps.extract_version.outputs.VERSION }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -157,7 +143,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "echo ✅ Connected successfully"
+          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "echo  Connected successfully"
 
       - name: Create deployment folder
         run: |

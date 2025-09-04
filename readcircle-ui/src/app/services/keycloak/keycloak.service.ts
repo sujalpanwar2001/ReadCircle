@@ -13,7 +13,6 @@ export class KeycloakService {
     if (!this._keycloak) {
       this._keycloak = new Keycloak({
         // url: 'http://localhost:9090',
-        // url: 'http://readcircle.duckdns.org:9090',
         url: 'http://144.24.124.183:9090',
 
         realm: 'ReadCircle',

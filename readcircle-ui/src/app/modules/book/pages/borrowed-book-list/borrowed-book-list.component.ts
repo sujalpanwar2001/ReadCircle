@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { BookResponse, BorrowedBookResponse, FeedbackRequest, PageResponseBorrowedBookResponse } from 'src/app/services/models';
 import { BookService, FeedbackService } from 'src/app/services/services';
 
@@ -9,14 +10,15 @@ import { BookService, FeedbackService } from 'src/app/services/services';
 })
 export class BorrowedBookListComponent implements OnInit {
   page = 0;
-  size = 5;
+  size = 15;
   pages: any = [];
   borrowedBooks: PageResponseBorrowedBookResponse = {};
   selectedBook: BookResponse | undefined = undefined;
   feedbackRequest: FeedbackRequest = {bookId: 0, comment: '', note: 0};
   constructor(
     private bookService: BookService,
-    private feedbackService: FeedbackService
+    private feedbackService: FeedbackService,
+    private toastService: ToastrService
   ) {
   }
   ngOnInit(): void {
@@ -79,6 +81,7 @@ export class BorrowedBookListComponent implements OnInit {
         if (withFeedback) {
           this.giveFeedback();
         }
+        this.toastService.success('Book has been returned and the owner is notified for the approval', 'Success');
         this.selectedBook = undefined;
         this.findAllBorrowedBooks();
       }

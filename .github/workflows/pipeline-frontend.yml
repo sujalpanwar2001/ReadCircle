@@ -34,15 +34,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      #changed for arm vps
-#      - name: Build & Push to DockerHub
-#        uses: docker/build-push-action@v5
-#        with:
-#          context: readcircle-ui
-#          file: docker/frontend/Dockerfile
-#          push: true
-#          platforms: linux/amd64
-#          tags: ${{ secrets.DOCKERHUB_USERNAME }}/bsn-ui:latest,${{ secrets.DOCKERHUB_USERNAME }}/bsn-ui:${{ steps.extract_version.outputs.VERSION }}
 
       - name: Build & Push to DockerHub
         uses: docker/build-push-action@v5
@@ -85,17 +76,3 @@ jobs:
           sudo docker compose -f docker-compose.yml up -d
           EOF
 
-#  health-check:
-#    name: UI Health Check
-#    runs-on: ubuntu-latest
-#    needs: [deploy]
-#    steps:
-#      - name: Check the docker container health status
-#        run: |
-#          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "
-#          if ! docker ps -a | grep bsn-ui; then
-#            echo '🚨 UI container is not running'
-#            exit 1
-#          else
-#            echo '✅ UI container is running'
-#          fi"

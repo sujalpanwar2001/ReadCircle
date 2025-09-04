@@ -25,11 +25,19 @@ public class FeedbackMapper {
 
     }
 
-    public FeedbackResponse toFeedbackResponse(Feedback f, Integer id) {
-        return FeedbackResponse.builder()
-                .note(f.getNote())
-                .comment(f.getComment())
-                .ownFeedback(Objects.equals(f.getCreatedBy(), id))
-                .build();
-    }
+//    public FeedbackResponse toFeedbackResponse(Feedback f, Integer id) {
+//        return FeedbackResponse.builder()
+//                .note(f.getNote())
+//                .comment(f.getComment())
+//                .ownFeedback(Objects.equals(f.getCreatedBy(), id))
+//                .build();
+//    }
+public FeedbackResponse toFeedbackResponse(Feedback f, String userId) {
+    return FeedbackResponse.builder()
+            .note(f.getNote())
+            .comment(f.getComment())
+            .ownFeedback(Objects.equals(f.getCreatedBy(), userId))
+            .build();
+}
+
 }

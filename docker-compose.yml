@@ -14,12 +14,7 @@ services:
     networks:
       - spring-demo
     restart: unless-stopped
-#  mail-dev:
-#    container_name: mail-dev-bsn
-#    image: maildev/maildev
-#    ports:
-#      - 1080:1080
-#      - 1025:1025
+
   bsn-api:
     container_name: bsn-api
     image: sujalpanwar/bsn-api:latest
@@ -47,6 +42,7 @@ services:
       - spring-demo
     depends_on:
       - bsn-api
+      -
   keycloak:
     image: quay.io/keycloak/keycloak:24.0.1
     container_name: keycloak
@@ -71,52 +67,7 @@ services:
       - spring-demo
     depends_on:
       - postgres
-#  keycloak:
-#    image: quay.io/keycloak/keycloak:24.0.1
-#    container_name: keycloak
-#    platform: linux/arm64
-#    command:
-#      - start-dev
-#      - --http-enabled=true
-#      - --https-port=0
-#      - --import-realm
-#    environment:
-#      KEYCLOAK_ADMIN: admin
-#      KEYCLOAK_ADMIN_PASSWORD: admin
-#      KC_HOSTNAME_STRICT: "false"
-#      KC_HOSTNAME_STRICT_BACKCHANNEL: "false"
-#    volumes:
-#      - /home/ubuntu/ReadCircle.json:/opt/keycloak/data/import/ReadCircle.json
-#    ports:
-#      - "9090:8080"
 
-    #  keycloak:
-#    container_name: keycloak-bsn
-#    image: quay.io/keycloak/keycloak:24.0.2
-#    ports:
-#      - 9090:8080
-#    environment:
-#      KEYCLOAK_ADMIN: admin
-#      KEYCLOAK_ADMIN_PASSWORD: admin
-#    networks:
-#      - spring-demo
-#    command:
-#      - "start-dev"
-
-#  keycloak:
-#    image: quay.io/keycloak/keycloak:24.0.1
-#    container_name: keycloak
-#    platform: linux/arm64
-#    command:
-#      - start-dev
-#      - --import-realm
-#    environment:
-#      KEYCLOAK_ADMIN: admin
-#      KEYCLOAK_ADMIN_PASSWORD: admin
-#    volumes:
-#      - /home/ubuntu/ReadCircle.json:/opt/keycloak/data/import/ReadCircle.json
-#    ports:
-#      - "9090:8080"
 networks:
   spring-demo:
     driver: bridge
@@ -126,5 +77,3 @@ networks:
 volumes:
   postgres:
     driver: local
-#  keycloak:
-#    driver: local

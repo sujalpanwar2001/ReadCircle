@@ -1,4 +1,4 @@
-<div class="rating">
+<!-- <div class="rating">
   <ng-container *ngFor="let _ of [].constructor(fullStars); let i = index">
     <i class="fas fa-star text-warning"></i>
   </ng-container>
@@ -8,4 +8,20 @@
   <ng-container *ngFor="let _ of [].constructor(emptyStars); let i = index">
     <i class="far fa-star"></i>
   </ng-container>
+</div> -->
+
+<div class="rating d-flex gap-1">
+  <ng-container *ngFor="let _ of [].constructor(fullStars)">
+    <i class="fas fa-star text-warning"></i>
+  </ng-container>
+  <ng-container *ngIf="hasHalfStar">
+    <i class="fas fa-star-half-alt text-warning"></i>
+  </ng-container>
+  <ng-container *ngFor="let _ of [].constructor(emptyStars)">
+    <i class="far fa-star text-muted"></i>
+  </ng-container>
 </div>
+
+
+<!-- 
+<hr> -->

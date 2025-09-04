@@ -5,6 +5,9 @@ import com.sujal.readcircle.common.PageResponse;
 import com.sujal.readcircle.file.FileStorageService;
 import com.sujal.readcircle.history.BookTransactionHistory;
 import com.sujal.readcircle.history.BookTransationHistoryRepository;
+import com.sujal.readcircle.notification.Notification;
+import com.sujal.readcircle.notification.NotificationService;
+import com.sujal.readcircle.notification.NotificationStatus;
 import com.sujal.readcircle.user.User;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.sujal.readcircle.book.BookSpecification.withOwnerId;
+import static com.sujal.readcircle.notification.NotificationStatus.*;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +32,7 @@ public class BookService {
     private final BookMapper bookMapper;
     private final BookTransationHistoryRepository bookTransationHistoryRepository;
     private final FileStorageService fileStorageService;
+    private final NotificationService notificationService;
 
     public Integer save(BookRequest request, Authentication connectedUser) {
 
@@ -166,7 +171,7 @@ public class BookService {
 
         // check if THIS user already borrowed it
         if (bookTransationHistoryRepository.isAlreadyBorrowedByUser(bookId, connectedUser.getName())) {
-            throw new OperationNotPermittedException("The requested book is already borrowed by you");
+            throw new OperationNotPermittedException("You already borrowed this book and it is still not returned or the return is not approved by the owner");
         }
 
         // check if ANYONE has borrowed it
@@ -180,6 +185,15 @@ public class BookService {
                 .returned(false)
                 .returnApproved(false)
                 .build();
+
+        notificationService.sendNotification(
+                book.getCreatedBy(),
+                Notification.builder()
+                        .status(BORROWED)
+                        .message("Your book has been borrowed")
+                        .bookTitle(book.getTitle())
+                        .build()
+        );
 
         return bookTransationHistoryRepository.save(bookTransactionHistory).getId();
     }
@@ -228,7 +242,16 @@ public class BookService {
         BookTransactionHistory bookTransactionHistory = bookTransationHistoryRepository.findByBookIdAndUserId(bookId, connectedUser.getName())
                 .orElseThrow(()-> new OperationNotPermittedException("You didnt borrow this book"));
         bookTransactionHistory.setReturned(true);
-        return bookTransationHistoryRepository.save(bookTransactionHistory).getId();
+        var saved =  bookTransationHistoryRepository.save(bookTransactionHistory);
+        notificationService.sendNotification(
+                book.getCreatedBy(),
+                Notification.builder()
+                        .status(RETURNED)
+                        .message("Your book has been returned")
+                        .bookTitle(book.getTitle())
+                        .build()
+        );
+        return saved.getId();
     }
 
     public Integer approveReturnBorrowedBook(Integer bookId, Authentication connectedUser) {
@@ -249,7 +272,17 @@ public class BookService {
         BookTransactionHistory bookTransactionHistory = bookTransationHistoryRepository.findByBookIdAndOwnerId(bookId, connectedUser.getName())
                 .orElseThrow(()-> new OperationNotPermittedException("The book is not returned yet, so you cant approve its return "));
         bookTransactionHistory.setReturnApproved(true);
-        return bookTransationHistoryRepository.save(bookTransactionHistory).getId();
+        var saved =  bookTransationHistoryRepository.save(bookTransactionHistory);
+
+        notificationService.sendNotification(
+                bookTransactionHistory.getCreatedBy(),
+                Notification.builder()
+                        .status(RETURN_APPROVED)
+                        .message("Your book return has been approved by the owner")
+                        .bookTitle(book.getTitle())
+                        .build()
+        );
+        return saved.getId();
     }
 
     public void uploadBookCoverPicture(MultipartFile file, Authentication connectedUser, Integer bookId) {
