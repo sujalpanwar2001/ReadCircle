@@ -19,7 +19,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   private notificationSubscription: any;
   unreadNotificationsCount = 0;
   notifications: Array<Notification> = [];
-  
+
 
   constructor(
     private keycloakService: KeycloakService,
@@ -41,7 +41,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       this.socketClient.connect({ 'Authorization': 'Bearer ' + this.keycloakService.keycloak.token }, () => {
         this.notificationSubscription = this.socketClient.subscribe(
           // `/user/${this.keycloakService.keycloak.tokenParsed?.sub}/notifications`,
-            `/user/${userEmail}/notifications`,
+          `/user/${userEmail}/notifications`,
           (message: any) => {
             console.log('receiving notification' + message);
             const notification = JSON.parse(message.body);

@@ -42,12 +42,11 @@ export class KeycloakService {
     return this.keycloak.login();
   }
 
-  // logout() {
-  //   // this.keycloak.accountManagement();
-  //   return this.keycloak.logout({ redirectUri: 'http://localhost:4200' });
-  // }
+
 
   logout() {
+
+  // return this.keycloak.logout({ redirectUri: 'http://localhost:4200' });
     return this.keycloak.logout({ redirectUri: 'http://144.24.124.183/' });
   }
 
