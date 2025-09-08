@@ -40,9 +40,8 @@ services:
       - 80:80
       - 443:443  # ← ADD HTTPS PORT
     volumes:
-      - /etc/letsencrypt/live/readcircle.mine.bz/fullchain.pem:/etc/ssl/certs/readcircle.crt:ro
-      - /etc/letsencrypt/live/readcircle.mine.bz/privkey.pem:/etc/ssl/private/readcircle.key:ro
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro   # 👈 mount your updated nginx.conf
+      - /etc/letsencrypt/live/readcircle.mine.bz/fullchain.pem:/etc/ssl/certs/readcircle.crt
+      - /etc/letsencrypt/live/readcircle.mine.bz/privkey.pem:/etc/ssl/private/readcircle.key
     networks:
       - spring-demo
     depends_on:
