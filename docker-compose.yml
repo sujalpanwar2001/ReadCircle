@@ -38,6 +38,11 @@ services:
     platform: linux/arm64
     ports:
       - 80:80
+      - 443:443  # ← ADD HTTPS PORT
+    volumes:
+      - /etc/letsencrypt/live/readcircle.mine.bz/fullchain.pem:/etc/ssl/certs/readcircle.crt:ro
+      - /etc/letsencrypt/live/readcircle.mine.bz/privkey.pem:/etc/ssl/private/readcircle.key:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro   # 👈 mount your updated nginx.conf
     networks:
       - spring-demo
     depends_on:
@@ -52,6 +57,7 @@ services:
       - --http-enabled=true
       - --https-port=0
       - --import-realm
+      - --proxy=edge  # ← ADD THIS FOR HTTPS PROXY
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
@@ -59,6 +65,8 @@ services:
       KC_HOSTNAME_STRICT_BACKCHANNEL: "false"
       KC_HTTP_ENABLED: "true"
       KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_PROXY: "edge"  # ← ADD THIS FOR HTTPS PROXY
+
     volumes:
       - /home/ubuntu/ReadCircle.json:/opt/keycloak/data/import/ReadCircle.json
     ports:

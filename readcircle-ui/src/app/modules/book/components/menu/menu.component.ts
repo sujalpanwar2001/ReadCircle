@@ -32,7 +32,8 @@ export class MenuComponent implements OnInit, OnDestroy {
 
     if (this.keycloakService.keycloak.tokenParsed?.sub) {
       // let ws = new SockJS('http://localhost:8088/api/v1/ws');
-      let ws = new SockJS('http://144.24.124.183:8088/api/v1/ws');
+      // let ws = new SockJS('http://144.24.124.183:8088/api/v1/ws');
+      let ws = new SockJS('/api/v1/ws'); 
 
       const userEmail = this.keycloakService.keycloak.tokenParsed?.['email'];
 

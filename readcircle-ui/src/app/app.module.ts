@@ -41,9 +41,10 @@ export function kcFactory(kcService: KeycloakService) {
       positionClass: 'toast-bottom-right',
       timeOut: 8000
     }),
-    ApiModule.forRoot({rootUrl: 'http://144.24.124.183:8088/api/v1'})
+    // ApiModule.forRoot({rootUrl: 'http://144.24.124.183:8088/api/v1'})
 
     // ApiModule.forRoot({rootUrl: 'http://localhost:8088/api/v1'})
+     ApiModule.forRoot({rootUrl: '/api/v1'}) 
 
 
   ],

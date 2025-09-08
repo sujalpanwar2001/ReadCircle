@@ -13,7 +13,8 @@ export class KeycloakService {
     if (!this._keycloak) {
       this._keycloak = new Keycloak({
         // url: 'http://localhost:9090',
-        url: 'http://144.24.124.183:9090',
+        // url: 'http://144.24.124.183:9090',
+        url: 'https://readcircle.mine.bz/auth',
 
         realm: 'ReadCircle',
         clientId: 'bsn'
@@ -47,7 +48,8 @@ export class KeycloakService {
   logout() {
 
   // return this.keycloak.logout({ redirectUri: 'http://localhost:4200' });
-    return this.keycloak.logout({ redirectUri: 'http://144.24.124.183/' });
+    // return this.keycloak.logout({ redirectUri: 'http://144.24.124.183/' });
+     return this.keycloak.logout({ redirectUri: 'https://readcircle.mine.bz/' });
   }
 
 }

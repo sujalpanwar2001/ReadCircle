@@ -38,7 +38,8 @@ spring:
       resourceserver:
         jwt:
 #          issuer-uri: "http://localhost:9090/realms/ReadCircle"
-           issuer-uri: "http://144.24.124.183:9090/realms/ReadCircle"
+#          issuer-uri: "http://144.24.124.183:9090/realms/ReadCircle"
+          issuer-uri: "https://readcircle.mine.bz/auth/realms/ReadCircle"
 server:
   port: 8088
 # made few tweaks
@@ -64,6 +65,23 @@ application:
       - http://localhost:*
       - https://localhost:*
 
+      - http://141.148.222.231
+      - https://141.148.222.231
+      - http://144.24.124.183
+      - https://144.24.124.183
+      - http://localhost:4200
+      - http://localhost:8080
+      - # Add HTTPS origins
+      - https://readcircle.mine.bz
+      - https://readcircle.mine.bz:*
+
+       # Keep existing HTTP ones for internal communication
+      - http://141.148.222.231:*
+      - https://141.148.222.231:*
+      - http://144.24.124.183:*
+      - https://144.24.124.183:*
+      - http://localhost:*
+      - https://localhost:*
       - http://141.148.222.231
       - https://141.148.222.231
       - http://144.24.124.183
