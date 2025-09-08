@@ -153,7 +153,7 @@ jobs:
       - name: Build & Push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: readcircle
           file: docker/backend/Dockerfile
           push: true
           platforms: linux/arm64
@@ -163,6 +163,7 @@ jobs:
           build-args: |
             PROFILE=dev
             APP_VERSION=${{ steps.extract_version.outputs.VERSION }}
+
 
 
 
