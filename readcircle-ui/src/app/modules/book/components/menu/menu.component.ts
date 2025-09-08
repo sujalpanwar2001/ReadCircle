@@ -19,6 +19,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   private notificationSubscription: any;
   unreadNotificationsCount = 0;
   notifications: Array<Notification> = [];
+  
 
   constructor(
     private keycloakService: KeycloakService,
@@ -33,15 +34,19 @@ export class MenuComponent implements OnInit, OnDestroy {
       // let ws = new SockJS('http://localhost:8088/api/v1/ws');
       let ws = new SockJS('http://144.24.124.183:8088/api/v1/ws');
 
+      const userEmail = this.keycloakService.keycloak.tokenParsed?.['email'];
+
 
       this.socketClient = Stomp.over(ws);
       this.socketClient.connect({ 'Authorization': 'Bearer ' + this.keycloakService.keycloak.token }, () => {
         this.notificationSubscription = this.socketClient.subscribe(
-          `/user/${this.keycloakService.keycloak.tokenParsed?.sub}/notifications`,
+          // `/user/${this.keycloakService.keycloak.tokenParsed?.sub}/notifications`,
+            `/user/${userEmail}/notifications`,
           (message: any) => {
             console.log('receiving notification' + message);
             const notification = JSON.parse(message.body);
             if (notification) {
+
               this.notifications.unshift(notification);
               switch (notification.status) {
                 case 'BORROWED':

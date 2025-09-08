@@ -14,6 +14,7 @@ public class NotificationService {
 
     public void sendNotification(String userId, Notification notification) {
         log.info("Sending WS notification to {} with payload {}", userId, notification);
+        System.out.println("book create by user ID passed is " + userId);
         messagingTemplate.convertAndSendToUser(
                 userId,
                 "/notifications",

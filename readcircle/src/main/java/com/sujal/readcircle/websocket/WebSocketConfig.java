@@ -2,6 +2,7 @@ package com.sujal.readcircle.websocket;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sujal.readcircle.notification.CustomHandshakeHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -56,6 +57,7 @@ public void registerStompEndpoints(StompEndpointRegistry registry) {
                     "http://readcircle.mine.bz:4200"
 
             )
+            .setHandshakeHandler(new CustomHandshakeHandler())
             .withSockJS();
 }
 

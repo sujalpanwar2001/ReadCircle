@@ -47,13 +47,6 @@ application:
 
   cors:
     origins:
-      # Domain (HTTP + all ports)
-      - http://readcircle.duckdns.org:*
-
-      # Domain (HTTPS + all ports, future SSL)
-      - https://readcircle.duckdns.org:*
-      - http://readcircle.mooo.com:*
-      - -https://readcircle.mooo.com:*
 
       # Public IP (HTTP + all ports)
       - http://141.148.222.231:*
@@ -71,8 +64,6 @@ application:
       - http://localhost:*
       - https://localhost:*
 
-      - http://readcircle.duckdns.org
-      - https://readcircle.duckdns.org
       - http://141.148.222.231
       - https://141.148.222.231
       - http://144.24.124.183

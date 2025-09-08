@@ -14,47 +14,47 @@ public interface BookTransationHistoryRepository extends JpaRepository<BookTrans
     @Query("""
         SELECT history
         FROM BookTransactionHistory  history
-        WHERE history.userId = :userId
+        WHERE history.userId = :email
         """)
-    Page<BookTransactionHistory> findAllBorrowedBooks(Pageable pageable, String  userId);
+    Page<BookTransactionHistory> findAllBorrowedBooks(Pageable pageable, String  email);
 
     @Query("""
         SELECT history
         FROM BookTransactionHistory  history
-        WHERE history.book.createdBy = :userId
+        WHERE history.book.createdBy = :email
         AND history.returned = true
         """)
-    Page<BookTransactionHistory> findAllReturnedBooks(Pageable pageable, String userId);
+    Page<BookTransactionHistory> findAllReturnedBooks(Pageable pageable, String email);
 
     @Query("""
     SELECT
     ( COUNT(*) > 0) AS isBorrowed
     FROM BookTransactionHistory bookTransactionHistory
-    WHERE bookTransactionHistory.userId = :userId
+    WHERE bookTransactionHistory.userId = :email
     AND bookTransactionHistory.book.id = :bookId
     AND bookTransactionHistory.returnApproved = false 
 """)
-    boolean isAlreadyBorrowedByUser(Integer bookId, String userId);
+    boolean isAlreadyBorrowedByUser(Integer bookId, String email);
 
     @Query("""
     SELECT transaction
     FROM BookTransactionHistory transaction
-    WHERE transaction.userId = :userId
+    WHERE transaction.userId = :email
     AND transaction.book.id = :bookId
     AND transaction.returned = false
     AND transaction.returnApproved = false 
 """)
-    Optional<BookTransactionHistory> findByBookIdAndUserId(@Param("bookId") Integer bookId, @Param("userId") String userId);
+    Optional<BookTransactionHistory> findByBookIdAndUserId(@Param("bookId") Integer bookId, @Param("email") String email);
 
     @Query("""
     SELECT transaction
     FROM BookTransactionHistory transaction
-    WHERE transaction.book.createdBy = :userId
+    WHERE transaction.book.createdBy = :email
     AND transaction.book.id = :bookId
     AND transaction.returned = true 
     AND transaction.returnApproved = false 
 """)
-    Optional<BookTransactionHistory> findByBookIdAndOwnerId(@Param("bookId") Integer bookId, @Param("userId") String userId);
+    Optional<BookTransactionHistory> findByBookIdAndOwnerId(@Param("bookId") Integer bookId, @Param("email") String email);
 
 
 

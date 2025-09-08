@@ -13,7 +13,7 @@ import { HttpTokenInterceptor } from './services/interceptor/http-token.intercep
 import { ApiModule } from './services/api.module';
 import { KeycloakService } from './services/keycloak/keycloak.service';
 import { ToastrModule } from 'ngx-toastr';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 export function kcFactory(kcService: KeycloakService) {
   return () => kcService.init();
 }
@@ -32,6 +32,7 @@ export function kcFactory(kcService: KeycloakService) {
     FormsModule,
     CodeInputModule,
     ToastrModule,
+     BrowserAnimationsModule,
         ToastrModule.forRoot({
       progressBar: true,
       closeButton: true,
