@@ -57,11 +57,45 @@ jobs:
           cd readcircle
           chmod +x ./mvnw
           ./mvnw clean test -Dspring.profiles.active=test -Dspring.main.lazy-initialization=false
+          
+
+  sonarqube:
+    runs-on: ubuntu-latest
+    name: SonarQube Analysis
+    needs: [unit-tests]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # required for proper blame/PR analysis
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Run SonarQube analysis
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          cd readcircle
+          ./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.projectKey=sujalpanwar2001_ReadCircle \
+            -Dsonar.organization=sujalpanwar2001
+
 
   build:
     runs-on: ubuntu-latest
     name: Build backend
-    needs: [compile, unit-tests]
+    needs: [compile, unit-tests,sonarqube]
 #    needs: [compile]
 
     steps:
