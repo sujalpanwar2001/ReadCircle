@@ -1,14 +1,77 @@
+#spring:
+#  datasource:
+#    url: jdbc:h2:mem:book_social_network;DB_CLOSE_DELAY=-1
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#    password:
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    database-platform: org.hibernate.dialect.H2Dialect
+
+
 spring:
   datasource:
-    url: jdbc:h2:mem:book_social_network;DB_CLOSE_DELAY=-1
-    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password:
+    driver-class-name: org.h2.Driver
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      ddl-auto: create-drop
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
+    database: h2
     database-platform: org.hibernate.dialect.H2Dialect
+
+  mail:
+    host: localhost
+    port: 587
+    username: test
+    password: test
+    properties:
+      mail:
+        smtp:
+          auth: false
+          ssl:
+            enable: false
+            trust: "*"
+          starttls:
+            enable: false
+    protocol: smtp
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ""
+
+server:
+  port: 8088
+
+application:
+  security:
+
+  cors:
+    origins:
+      - http://localhost:*
+      - https://localhost:*
+      - http://localhost:4200
+      - http://localhost:8080
+
+  file:
+    uploads:
+      photos-output-path: ./test-uploads
+
+# Test specific logging
+logging:
+  level:
+    com.sujal.readcircle: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: INFO
