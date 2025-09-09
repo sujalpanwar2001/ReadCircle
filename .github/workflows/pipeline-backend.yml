@@ -87,6 +87,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           cd readcircle
+           chmod +x ./mvnw
           ./mvnw verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
             -Dsonar.projectKey=sujalpanwar2001_ReadCircle \
             -Dsonar.organization=sujalpanwar2001
