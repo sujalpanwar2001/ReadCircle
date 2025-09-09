@@ -30,31 +30,31 @@ jobs:
           chmod +x ./mvnw
           ./mvnw clean compile
 
-unit-tests:
-  runs-on: ubuntu-latest
-  name: Unit tests
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+  unit-tests:
+    runs-on: ubuntu-latest
+    name: Unit tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Setup JDK
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'corretto'
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
 
-    - name: Run Unit Tests
-      env:
-        SPRING_PROFILES_ACTIVE: test
-        EMAIL_HOST_NAME: localhost
-        EMAIL_USER_NAME: test
-        EMAIL_PASSWORD: test
-      run: |
-        cd readcircle
-        chmod +x ./mvnw
-        ./mvnw clean test -Dspring.profiles.active=test
+      - name: Run Unit Tests
+        env:
+          SPRING_PROFILES_ACTIVE: test
+          EMAIL_HOST_NAME: localhost
+          EMAIL_USER_NAME: test
+          EMAIL_PASSWORD: test
+        run: |
+          cd readcircle
+          chmod +x ./mvnw
+          ./mvnw clean test -Dspring.profiles.active=test
 
   build:
     runs-on: ubuntu-latest
