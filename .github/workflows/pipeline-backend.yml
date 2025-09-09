@@ -48,13 +48,15 @@ jobs:
       - name: Run Unit Tests
         env:
           SPRING_PROFILES_ACTIVE: test
-          EMAIL_HOST_NAME: localhost
-          EMAIL_USER_NAME: test
-          EMAIL_PASSWORD: test
+          SPRING_MAIL_HOST: localhost
+          SPRING_MAIL_TEST_CONNECTION: false
+          SPRING_JMX_ENABLED: false
+          SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: ""
+          MANAGEMENT_ENDPOINTS_ENABLED_BY_DEFAULT: false
         run: |
           cd readcircle
           chmod +x ./mvnw
-          ./mvnw clean test -Dspring.profiles.active=test
+          ./mvnw clean test -Dspring.profiles.active=test -Dspring.main.lazy-initialization=false
 
   build:
     runs-on: ubuntu-latest

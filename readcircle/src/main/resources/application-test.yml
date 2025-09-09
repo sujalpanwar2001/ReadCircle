@@ -12,6 +12,7 @@
 #      hibernate:
 #        format_sql: true
 #    database-platform: org.hibernate.dialect.H2Dialect
+#
 
 
 spring:
@@ -53,7 +54,23 @@ spring:
           issuer-uri: ""
 
 server:
-  port: 8088
+  port: 0  # Use random port for tests
+
+# Disable management endpoints for tests
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      enabled: true
+  health:
+    mail:
+      enabled: false
+    db:
+      enabled: false
 
 application:
   security:
