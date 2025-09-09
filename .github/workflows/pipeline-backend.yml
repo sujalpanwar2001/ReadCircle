@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Unit tests
     env:
-      SPRING_PROFILES_ACTIVE: test
+      SPRING_PROFILES_ACTIVE: dev
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
