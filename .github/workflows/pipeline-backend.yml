@@ -30,38 +30,38 @@ jobs:
           chmod +x ./mvnw
           ./mvnw clean compile
 
-#  unit-tests:
-#    runs-on: ubuntu-latest
-#    name: Unit tests
-#    env:
-#      SPRING_PROFILES_ACTIVE: test
-#    steps:
-#      - name: Checkout code
-#        uses: actions/checkout@v4
-#        with:
-#          fetch-depth: 0
-#
-#      - name: Setup JDK
-#        uses: actions/setup-java@v4
-#        with:
-#          java-version: '17'
-#          distribution: 'corretto'
-#
-#      - name: Run Unit Tests
-#        env:
-#          EMAIL_HOST_NAME: ${{ secrets.EMAIL_HOST_NAME }}
-#          EMAIL_USER_NAME: ${{ secrets.EMAIL_USER_NAME }}
-#          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-#        run: |
-#          cd readcircle
-#          chmod +x ./mvnw
-#          ./mvnw clean test
+  unit-tests:
+    runs-on: ubuntu-latest
+    name: Unit tests
+    env:
+      SPRING_PROFILES_ACTIVE: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+
+      - name: Run Unit Tests
+        env:
+          EMAIL_HOST_NAME: ${{ secrets.EMAIL_HOST_NAME }}
+          EMAIL_USER_NAME: ${{ secrets.EMAIL_USER_NAME }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        run: |
+          cd readcircle
+          chmod +x ./mvnw
+          ./mvnw clean test
 
   build:
     runs-on: ubuntu-latest
     name: Build backend
-#    needs: [compile, unit-tests]
-    needs: [compile]
+    needs: [compile, unit-tests]
+#    needs: [compile]
 
     steps:
       - name: Checkout code
