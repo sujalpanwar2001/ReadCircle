@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ReadCircle.iml" filepath="$PROJECT_DIR$/.idea/ReadCircle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/readcircle/readcircle.iml" filepath="$PROJECT_DIR$/readcircle/readcircle.iml" />
     </modules>
   </component>
 </project>
