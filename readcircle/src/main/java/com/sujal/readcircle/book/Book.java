@@ -30,7 +30,6 @@ public class Book extends BaseEntity {
     private String authorName;
     private String isbn;
 
-    @Lob
     @Column(columnDefinition = "TEXT")
     private String synopsis;
 

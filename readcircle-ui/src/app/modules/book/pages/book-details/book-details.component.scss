@@ -5,3 +5,8 @@
   width: 100%;
   z-index: 1030; /* stays above content */
 }
+.synopsis-text {
+  white-space: pre-wrap;   /* keep line breaks and wrap text */
+  word-break: break-word;  /* break long words if needed */
+  overflow-wrap: anywhere; /* modern fallback for extra-long strings */
+}

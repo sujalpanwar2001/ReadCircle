@@ -21,8 +21,8 @@ spring:
 #    password: ${EMAIL_PASSWORD}
     host: smtp.gmail.com
     port: 465
-    username: sujalpanwar2001@gmail.com
-    password: idsz bjcb ftjc khkd
+    username: dummyemail@gmail.com
+    password: dummypassword
     properties:
       mail:
         smtp:
