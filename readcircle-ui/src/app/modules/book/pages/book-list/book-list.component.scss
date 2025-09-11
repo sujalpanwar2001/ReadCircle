@@ -5,3 +5,10 @@
   width: 100%;
   z-index: 1030; /* stays above content */
 }
+
+.pagination-footer {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  z-index: 1030;
+}
