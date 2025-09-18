@@ -54,28 +54,6 @@ ReadCircle enables users to register, validate accounts via email, manage their 
 - **JUnit/Mockito** - Backend unit testing
 - **DockerHub** - Container registry
 
-## My Enhancements
-This project extends an open-source learning template with production-grade features:
-
-### 🔧 **Production Deployment**
-- **OCI Integration**: Complete deployment to Oracle Cloud Infrastructure with auto-scaling and load balancing
-- **Docker Orchestration**: Multi-container setup using Docker Compose for frontend, backend, and database
-- **Live Hosting**: Production-ready deployment accessible at [http://readcircle.mine.bz/](http://readcircle.mine.bz/)
-
-### ⚡ **Performance Optimizations**
-- **Frontend Performance**: Implemented lazy loading and pagination, improving Lighthouse scores to 95+
-- **API Response Optimization**: Cached frequent queries, reducing response times by 30%
-- **Bundle Optimization**: Tree-shaking and code splitting for faster initial loads
-
-### 🛡️ **Security & Quality**
-- **CI/CD Pipeline**: Automated testing and deployment with GitHub Actions
-- **Code Quality**: SonarCloud integration with 75%+ test coverage
-- **Security Testing**: Validated Keycloak integration across 5 test scenarios
-
-### 🧪 **Testing & Validation**
-- **End-to-End Testing**: Validated complete user flows with 5 self-managed test accounts
-- **Load Testing**: Stress-tested borrow/return workflows using JMeter
-- **Security Validation**: Tested JWT token flows and role-based access controls
 
 ## Getting Started
 
